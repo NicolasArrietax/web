@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Memoria - Imágenes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./assets/amor1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('./assets/amor1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        #wrapper {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        #game {
+            height: 100%;
+            max-height: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+        }
+
+        #stats {
+            color: white;
+            position: absolute;
+            padding: 1rem;
+            text-align: center;
+            width: calc(100% - 2rem);
+            font-size: 3rem;
+        }
+
+        .card {
+            width: 99px;
+            height: 150px;
+            margin: 1rem;
+            position: relative;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+            background-color: #fe0564;
+            border-radius: 15px;
+        }
+
+        .card.active {
+            transform: rotateY(180deg);
+        }
+
+        .card div {
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            backface-visibility: hidden;
+            pointer-events: none;
+        }
+
+        .card .face {
+            background: #05d1fe;
+            transform: rotateY(180deg);
+        }
+
+        .card .back {
+            border: 5px solid white;
+            background: url('./assets/back.png') center / contain no-repeat;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+            object-fit: cover;
+        }
+        /* ////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+   
+    .caja{
+       left: 4%;
+       border: 2px solid white;
+       border-radius: 10px;
+    }
+    .zona-fija{
+        color:white;
+        border-radius: 10px;
+    
+    }
+#box1 {
+    width: 80px;
+    height: 80px;
+    background-color: #af4c4c;
+    position: absolute;
+    touch-action: none; /* Para evitar el zoom al tocar */
+    cursor: grab;
+    top: 49%;
+}
+#box2 {
+    width: 80px;
+    height: 80px;
+    background-color: #af4c4c;
+    position: absolute;
+    touch-action: none; /* Para evitar el zoom al tocar */
+    cursor: grab;
+    top: 62%;
+ 
+}
+#box3 {
+    width: 80px;
+    height: 80px;
+    background-color: #af4c4c;
+    position: absolute;
+    touch-action: none; /* Para evitar el zoom al tocar */
+    cursor: grab;
+    top: 88%;
+}
+
+#box4 {
+    width: 80px;
+    height: 80px;
+    background-color: #af4c4c;
+    position: absolute;
+    touch-action: none; /* Para evitar el zoom al tocar */
+    cursor: grab;
+   
+    top: 10%;
+}
+
+#box5 {
+    width: 80px;
+    height:80px;
+    background-color: #af4c4c;
+    position: absolute;
+    touch-action: none; /* Para evitar el zoom al tocar */
+    cursor: grab;
+  
+    top: 75%;
+}
+
+#box6 {
+    width: 80px;
+    height: 80px;
+    background-color: #af4c4c;
+    position: absolute;
+    touch-action: none; /* Para evitar el zoom al tocar */
+    cursor: grab;
+   
+    top: 23%;
+}
+#box7 {
+    width: 80px;
+    height: 80px;
+    background-color: #af4c4c;
+    position: absolute;
+    touch-action: none; /* Para evitar el zoom al tocar */
+    cursor: grab;
+   
+    top: 36%;
+}
+#dropzone1 {
+    width: 90px;
+    height: 90px;
+    background-color: #FF9800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #fff;
+    position: absolute;
+    bottom: 50px; /* Ubicación en la parte inferior */
+    cursor: pointer;
+    top: 10%;
+    right: 0;
+    z-index: -1;
+}
+#dropzone2 {
+    width: 90px;
+    height: 90px;
+    background-color: #FF9800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #fff;
+    position: absolute;
+    bottom: 50px; /* Ubicación en la parte inferior */
+    cursor: pointer;
+    top: 23%;
+    right: 0;
+    z-index: -1;
+}
+#dropzone3 {
+    width: 90px;
+    height: 90px;
+    background-color: #FF9800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #fff;
+    position: absolute;
+    bottom: 50px; /* Ubicación en la parte inferior */
+    cursor: pointer;
+    top: 36%;
+    right: 0;
+    z-index: -1;
+}
+#dropzone4 {
+    width: 90px;
+    height: 90px;
+    background-color: #FF9800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #fff;
+    position: absolute;
+    bottom: 50px; /* Ubicación en la parte inferior */
+    cursor: pointer;
+    top: 49%;
+    right: 0;
+    z-index: -1;
+}
+#dropzone5 {
+    width: 90px;
+    height: 90px;
+    background-color: #FF9800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #fff;
+    position: absolute;
+    bottom: 50px; /* Ubicación en la parte inferior */
+    cursor: pointer;
+    top: 62%;
+    right: 0;
+    z-index: -1;
+}
+#dropzone6 {
+    width: 90px;
+    height: 90px;
+    background-color: #FF9800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #fff;
+    position: absolute;
+    bottom: 50px; /* Ubicación en la parte inferior */
+    cursor: pointer;
+    top: 75%;
+    right: 0;
+    z-index: -1;
+}
+#dropzone7 {
+    width: 90px;
+    height: 90px;
+    background-color: #FF9800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #fff;
+    position: absolute;
+    bottom: 50px; /* Ubicación en la parte inferior */
+    cursor: pointer;
+    top: 88%;
+    right: 0;
+    z-index: -1;
+}
+
+.mensaje {
+    display: none; /* Inicialmente oculto */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: #ffffff;
+    text-align: center;
+}
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.contenedor10 {
+    width: 920px;
+    height: 280px;
+    margin: 0 auto;
+    
+    position: relative;
+    background: linear-gradient(#b7d6c7, transparent) #ffe2d1;/*linear-gradient(#90ebff, white);*/
+    transition: background-color 1s linear;
+    overflow: hidden;
+}
+
+.mediodia {
+    background-color: #ffdcf3;
+}
+
+.tarde {
+    background-color: #ffadad;
+}
+
+.noche {
+    background-color: #aca8c7;
+}
+
+.dino {
+    width: 84px;
+    height: 84px;
+
+    position: absolute;
+    bottom: 22px;
+    left: 42px;
+    z-index: 2;
+
+   /* background: url(./assets/box0.jpg) repeat-x 0px 0px; */
+    background-size: 336px 84px;
+    background-position-x: 0px;
+
+}
+
+.dino-corriendo {
+    animation: animarDino 0.25s steps(2) infinite;
+}
+.dino-estrellado {
+    background-position-x: -252px;
+}
+
+.suelo {
+    width: 200%;
+    height: 42px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background: url(./assets/suelo.png) repeat-x 0px 0px;
+    background-size: 50% 42px;
+
+}
+
+.cactus{
+    width: 46px;
+    height: 96px;
+
+    position: absolute;
+    bottom: 16px;
+    left: 600px;
+    z-index: 1;
+
+   background: url(./assets/cactus1.png) no-repeat; 
+}
+.cactus2{
+    width: 98px;
+    height: 66px;
+
+    background: url(./assets/cactus2.png) no-repeat;
+}
+.cactus3{
+    width: 98px;
+    height: 88px;
+    position: absolute;
+    bottom: 16px;
+    left: 600px;
+    z-index: 1;
+    background: url(./assets/image.png) no-repeat;
+    top: 63%;
+}
+
+.nube{
+    width: 92px;
+    height: 26px;
+
+    position: absolute;
+    z-index: 0;
+
+    background: url(./assets/nube.png) no-repeat;
+    background-size: 92px 26px;
+}
+
+.score{
+    width: 100px;
+    height: 30px;
+
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    z-index: 10;
+
+    color: #d48871;
+    font-family: Verdana;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.game-over{
+    display: none;
+
+    position: absolute;
+    width: 100%;
+
+
+    text-align: center;
+    color: #7e928b;
+    font-size: 30px;
+    font-family: Verdana;
+    font-weight: 700;
+}
+.ganaste{
+    display: none;
+
+    position: absolute;
+    width: 100%;
+
+
+    text-align: center;
+    color: #7e928b;
+    font-size: 30px;
+    font-family: Verdana;
+    font-weight: 700;
+}
+
+@keyframes animarDino{
+    from{
+        background-position-x: -84px;
+    }
+    to{
+        background-position-x: -252px;
+    }
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container-letter {
+  position: relative;
+}
+
+.cover {
+  position: absolute;
+  border-left: 200px solid transparent;
+  border-right: 200px solid transparent;
+  border-top: 100px solid #fe3334;
+  border-bottom: 100px solid transparent;
+
+  /*  */
+  transition: transform .75s;
+  transform-origin: top;
+}
+
+.paper {
+  display: none;
+  position: absolute;
+  padding: 1.5rem;
+  line-height: 2rem;
+  right: 5px;
+  /*  */
+  z-index: -1;
+  background: white;
+  width: 340px;
+  height: 260px;
+font-size: 12px;
+  transition: all .75s;
+}
+
+.letter {
+  border-left: 200px solid #ff989e;
+  border-right: 200px solid #ff989e;
+  border-top: 100px solid transparent;
+  border-bottom: 100px solid #ff858a;
+}
+.options {
+  display: flex;
+  gap: 5rem;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+
+.options button {
+  color: #ff3234;
+  font-weight: 600;
+  border-radius: 3px;
+  background: #fad7df;
+  padding: 0.5rem 1rem;
+  border: 1px solid #fe3334;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.options button:hover {
+  background: #ff989e;
+  color: white;
+}
+
+
+.open-cover {
+  transform: rotatex(180deg);
+}
+
+.open-paper {
+  animation: openPaper .5s forwards;
+}
+
+@keyframes openPaper {
+  0% {
+    
+    top: 0;
+  }
+  100% {
+   
+    top: -240px;
+  }
+}
+
+.close-paper {
+  animation: closePaper .5s forwards;
+}
+
+@keyframes closePaper {
+  0% {
+    top: -150px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+
+.heart {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 46.5%;
+  margin: auto;
+  font-size: 3rem;
+
+  color: #fe3334;
+
+  animation: crecer 1s forwards ;
+}
+
+@keyframes crecer {
+  0% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 3;
+    opacity: 0;
+
+  }
+}
+
+.heart2 {
+      position: absolute;
+      top: 0%;
+      left: 60%;
+      width: 100px;
+      height: 100px;
+      font-size: 140px;
+      animation: heartbeat 1s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+
+    /*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    .carousel-container {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-container2 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.carousel-container3 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container4 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container5 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container6 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container7 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container8 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container9 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container10 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container11 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.carousel-container12 {
+    width: 99%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel2 {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel3 {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel4 {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel5 {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel6 {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel7 {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel8{
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel9{
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel10{
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel11{
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+.carousel12{
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+
+
+.carousel-item {
+    min-width: 50%;
+}
+.carousel-item2 {
+    min-width: 50%;
+}
+.carousel-item3 {
+    min-width: 50%;
+}
+.carousel-item4 {
+    min-width: 100%;
+}
+.carousel-item5 {
+    min-width: 50%;
+}
+.carousel-item6 {
+    min-width: 50%;
+}
+
+.carousel-item7 {
+    min-width: 50%;
+}
+.carousel-item8 {
+    min-width: 50%;
+}
+.carousel-item9 {
+    min-width: 50%;
+}
+.carousel-item10 {
+    min-width: 50%;
+}
+
+.carousel-item11 {
+    min-width: 50%;
+}
+.carousel-item12 {
+    min-width: 50%;
+}
+
+
+
+
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item2 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item3 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item4 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item5 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item6 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item7 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item8 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item9 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item10 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item11 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.carousel-item12 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+</style>
+</head>
+<body>
+    <section   id="seccion1"> 
+    <div id="stats">0 intentos</div>
+    <div id="wrapper">
+        <div style="overflow-y: scroll;" id="game"></div>
+    </div>
+</section>
+
+<section style="display: none" id="seccion2">
+<div style="overflow-y: scroll;">
+<div style="font-size: 24px; color:white; position:absolute; left: 10%; top:3%; ">Momentos de este año junto a ti❤️</div>
+    <div id="box1" class="caja">
+        <img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box1.jpg" alt="">
+    </div>
+    <div id="box2" class="caja">
+        <img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box2.jpg" alt="">
+
+    </div>
+    <div id="box3" class="caja">
+        <img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box3.jpg" alt="">
+
+    </div>
+        <div id="box4" class="caja">
+            <img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box4.jpg" alt="">
+        </div>
+    <div id="box5" class="caja">
+        <img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box5.jpg" alt="">
+    </div>
+    <div id="box6" class="caja">
+        <img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box6.jpg" alt="">
+    </div>
+    <div id="box7" class="caja">
+        <img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box7.jpg" alt="">
+    </div>
+
+
+
+
+
+    <div id="dropzone1" class="zona-fija">Drilococo</div>
+    <div id="dropzone2" class="zona-fija">Manzanita acaramelada
+        (el 90% de los juego con los ojos cerrados)</div>
+    <div id="dropzone3" class="zona-fija">No volvemos a comer mas arroz chino </div>
+    <div id="dropzone4" class="zona-fija">SA CITY</div>
+    <div id="dropzone5" class="zona-fija">Profe Carlos (JULIANA EL PROYECTO)</div>
+    <div id="dropzone6" class="zona-fija">Luces y bañada de paso</div>
+    <div id="dropzone7" class="zona-fija">Melaniiiiíííí</div>
+
+
+
+    <div id="ganaste" class="mensaje"><img style="width: 100%;height: 100%; object-fit: contain; " src="./assets/box0.jpg" alt="">¡Bien hecho mi amor!❤️</div>
+    
+</div>
+</section>
+
+<section style="display: none;" id="seccion3">
+
+    <section style=" height: 100vh;display: flex;align-items: center;" >
+    <div class="contenedor10">
+
+        <div class="suelo"></div>
+        
+        <div class="dino dino-corriendo">
+            <img style="width: 100%;height: 100%; object-fit: contain;" src="./assets/dino.png" alt="">
+        </div>
+
+        <div class="score">0</div>
+
+    </div>
+ <button  onclick="Saltar()" style="position: absolute;   padding: 10px 20px;
+ background-color: #d48871;
+ color: white;
+ font-size: 16px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s;
+ left: 50%;
+ top:90%;">
+Saltar
+</button>
+<button id="empezar" onclick="Loop()" style=" position: absolute; padding: 10px 20px; background-color: #d48871; color: white; font-size: 16px; border: none; border-radius: 60px; cursor: pointer; transition: background-color 0.3s; left: 50%; top:40%;">
+    Empezar
+</button>
+<div class="game-over">
+    Joa amor como asi
+    <button onclick="Reiniciar()" style=" padding: 10px 20px; background-color: #d48871; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Volver a jugar</button>
+</div>
+
+<div class="ganaste" id="win" >
+
+   felicidades mi amor
+   <div style="font-size: 50px;
+   position: absolute;
+   z-index: 2;
+   left: 23%;
+   top: 153%;">❤️</div>
+       <button onclick="continuar()" style=" padding: 10px 20px; background-color: #d48871; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Continuar</button>
+</div>
+
+    <div class="game-over">GAME OVER</div>
+</section>
+</section>
+
+<section style="display: none;"  id="seccion4">
+    <main>
+        <section id="seccion1" class="seccion">
+          <div  class="heart2" style="position: absolute; top: 0%; width: 100px; height: 100px; left:70%; font-size: 60px;">❤️</div>
+    
+    <div  class="heart2" style="position: absolute; top: 85%; width: 100px; height: 100px; left:10%; font-size: 60px;">❤️</div>
+        <div class="container-letter">
+          <div class="cover"></div>
+          <span class="heart">❤️</span>
+          <p class="paper" id="mainMessage">
+           ❤️ Amor, hoy celebramos dos años juntos y no puedo estar más agradecido por cada momento a tu lado. Eres mi amor más grande. Feliz aniversario, Mi vida estera, te amo infinitamente y quiero seguir creando más recuerdos juntos.Esta carta esta dirijida a la fundacion danzakudulo para informales que me voy a quedar con su niña y me la voy a quedar toda la vida.❤️
+          </p>
+          <div class="letter"></div>
+        </div>
+        <div class="options">
+          <button id="open">Abrir</button>
+          <button id="close">Cerrar</butto>
+        </div>
+      </main>
+    </div>
+    
+    <button id="cambiar1" style="position:absolute; top:75%; left: 40%; width: 100px; height: 100px; background-color: transparent; border: none;"  onclick="cambiarseccion()">
+      <img style="width: 100%;
+      height: 100%;
+      object-fit: contain; 
+      transform: rotate(-90deg);
+      " src="./flecha-hacia-abajo-para-navegar.png" alt="">
+    </button>
+    
+    <div style="position: absolute; top: 85%; width: 100px; height: 100px; right:2%;">
+        <img style="width: 100%;
+        height: 100%;
+        object-fit: contain; 
+        transform: rotate(90deg);" src="./assets/marco.png" alt="">
+      </div>
+      
+      
+      </div>
+      <div style="position: absolute; top: 0%; width: 100px; height: 100px; left:-2%;">
+      <img style="width: 100%;
+      height: 100%;
+      object-fit: contain; 
+      transform: rotate(-90deg);" src="./assets/marco.png" alt="">
+      </div>
+    </section>
+    
+    <section  style="display: none;" id="seccion5">
+
+
+        <br><br>
+        <div style="color: rgb(255, 39, 39); font-size: 24px;     text-align: center; font-weight: bold;">Intentos:</div>
+         <div style="color: white; font-size: 20px;     text-align: center; font-weight: bold;"> Que importa mi amor te amooooooooooooooo❤️</div><br>
+
+
+        <div style="color: rgb(255, 39, 39); font-size: 24px;     text-align: center; font-weight: bold;">Tiempo recorrido:</div>
+        <div style="color: white; font-size: 20px;     text-align: center; font-weight: bold;">Que importa mi amor ESTOY MUY FELIZ DE ESTAR DE ANIVERSARIOOOO DE 2 AÑOOSSS CONTIGO WIIIIII❤️</div><br>
+
+        <div style="color: rgb(255, 39, 39); font-size: 24px;     text-align: center; font-weight: bold;">Puntos Totales: </div>
+        <div style="color: white; font-size: 20px;     text-align: center; font-weight: bold;">TODOS LOS POSIBLES PORQUE TU ERES LA MEJOR EN TODO Y te mereces todo y mucho mas ❤️</div><br><br>
+
+        <div style="color: white; font-size: 20px;     text-align: center; font-weight: bold;"> ❤️Aqui esta un recordatorio de que te amo y siempre estas en mi corazon, la verdad que sobras las palabras para describir todo lo que estoy sientiendo en este momento realmente te amo demaciado y no quiero que esto acabe nunca  solo quiero que observes todos los buenos momentos y recuerdos que tubimos este ultimo año y que podemos seguir contruyendo mas momento felices juntos ❤️</div><br>
+        <div style="color: white; font-size: 20px;     text-align: center; font-weight: bold;"> TE AMOOOOOOOOOOOOOOOOOOOOOOO MUCHOOOOOOOOOOOOOOOOOOOO FELIZ ANIVERSARIOOOO 2 AÑOSSSS ❤️</div><br><br><br>
+
+
+
+
+
+        <div class="carousel-container">
+            <div class="carousel">
+                <div style=" min-width: 100%; " class="carousel-item"><img src="./assets/a1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item"><img src="./assets/a2.jpg" alt="Imagen 2"></div>
+                <div class="carousel-item"><img src="./assets/a3.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item"><img src="./assets/a6.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item"><img src="./assets/a5.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item"><img src="./assets/a4.jpg" alt="Imagen 3"></div>
+
+            </div>
+        </div>
+
+        <div class="carousel-container2">
+            <div class="carousel2">
+                <div style=" " class="carousel-item2"><img src="./assets/b1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item2"><img src="./assets/b2.jpg" alt="Imagen 2"></div>
+                <div class="carousel-item2"><img src="./assets/b3.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item2"><img src="./assets/b6.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item2"><img src="./assets/b5.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item2"><img src="./assets/b4.jpg" alt="Imagen 3"></div>
+                
+
+            </div>
+        </div>
+
+        <div class="carousel-container3">
+            <div class="carousel3">
+                <div style="" class="carousel-item3"><img src="./assets/c1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item3"><img src="./assets/c2.jpg" alt="Imagen 2"></div>
+                <div class="carousel-item3"><img src="./assets/c3.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item3"><img src="./assets/c6.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item3"><img src="./assets/c5.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item3"><img src="./assets/c4.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item3"><img src="./assets/c7.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item3"><img src="./assets/c9.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item3"><img src="./assets/c8.jpg" alt="Imagen 3"></div>
+
+            </div>
+        </div>
+
+
+        <div class="carousel-container4">
+            <div class="carousel4">
+                <div class="carousel-item4"><img src="./assets/d1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item4"><img src="./assets/d2.jpg" alt="Imagen 2"></div>
+                <div style="min-width: 110%;" class="carousel-item4"><img src="./assets/d3.jpg" alt="Imagen 2"></div>
+
+
+            </div>
+        </div>
+
+
+        <div class="carousel-container5">
+            <div class="carousel5">
+                <div style=" " class="carousel-item5"><img src="./assets/e1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item5"><img src="./assets/e4.jpg" alt="Imagen 2"></div>
+                <div class="carousel-item5"><img src="./assets/e3.jpg" alt="Imagen 3"></div>
+                <div class="carousel-item5"><img src="./assets/e2.jpg" alt="Imagen 3"></div>
+                
+            </div>
+        </div>
+
+        <div class="carousel-container6">
+            <div class="carousel6">
+                <div style=" " class="carousel-item6"><img src="./assets/f1.jpg" alt="Imagen 1"></div>
+                <div style="min-width: 60% " class="carousel-item6"><img src="./assets/f4.jpg" alt="Imagen 2"></div>
+                <div style="min-width: 40%" class="carousel-item6"><img src="./assets/f3.jpg" alt="Imagen 3"></div>
+                <div style="min-width: 40%" class="carousel-item6"><img src="./assets/f2.jpg" alt="Imagen 3"></div>
+                <div style="min-width: 60%" class="carousel-item6"><img src="./assets/f5.jpg" alt="Imagen 3"></div>
+                <div style="min-width: 60%" class="carousel-item6"><img src="./assets/f6.jpg" alt="Imagen 3"></div>
+
+            </div>
+        </div>
+
+
+        
+        <div class="carousel-container7">
+            <div class="carousel7">
+                <div style="min-width: 100% " class="carousel-item7"><img src="./assets/g1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item7"><img src="./assets/g4.jpg" alt="Imagen 2"></div>
+                <div  class="carousel-item7"><img src="./assets/g3.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item7"><img src="./assets/g2.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item7"><img src="./assets/g5.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item7"><img src="./assets/g6.jpg" alt="Imagen 3"></div>
+
+            </div>
+        </div>
+
+
+        <div class="carousel-container8">
+            <div class="carousel8">
+                <div style="" class="carousel-item8"><img src="./assets/h7.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item8"><img src="./assets/h2.jpg" alt="Imagen 2"></div>
+                <div  class="carousel-item8"><img src="./assets/h5.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item8"><img src="./assets/h4.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item8"><img src="./assets/h6.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item8"><img src="./assets/h3.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item8"><img src="./assets/h1.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item8"><img src="./assets/h8.jpg" alt="Imagen 3"></div>
+
+
+
+            </div>
+        </div>
+
+
+        <div class="carousel-container9">
+            <div class="carousel9">
+                <div style="" class="carousel-item9"><img src="./assets/j1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item9"><img src="./assets/j3.jpg" alt="Imagen 2"></div>
+                <div  class="carousel-item9"><img src="./assets/j2.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item9"><img src="./assets/j4.jpg" alt="Imagen 3"></div>
+
+
+
+            </div>
+        </div>
+
+        <div class="carousel-container10">
+            <div class="carousel10">
+                <div style="min-width: 100%" class="carousel-item10"><img src="./assets/k2.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item10"><img src="./assets/k3.jpg" alt="Imagen 2"></div>
+                <div  class="carousel-item10"><img src="./assets/k1.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k4.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k5.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k6.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k7.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k9.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k8.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k10.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k12.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k11.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k13.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item10"><img src="./assets/k14.jpg" alt="Imagen 3"></div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+        <div class="carousel-container11">
+            <div class="carousel11">
+                <div style="" class="carousel-item11"><img src="./assets/l1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item11"><img src="./assets/l3.jpg" alt="Imagen 2"></div>
+                <div  class="carousel-item11"><img src="./assets/l2.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item11"><img src="./assets/l4.jpg" alt="Imagen 3"></div>
+
+            </div>
+        </div>
+
+
+        
+
+        <div class="carousel-container12">
+            <div class="carousel12">
+                <div style="" class="carousel-item12"><img src="./assets/ñ1.jpg" alt="Imagen 1"></div>
+                <div class="carousel-item12"><img src="./assets/ñ5.jpg" alt="Imagen 2"></div>
+                <div  class="carousel-item12"><img src="./assets/ñ2.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item12"><img src="./assets/ñ4.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item12"><img src="./assets/ñ6.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item12"><img src="./assets/ñ7.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item12"><img src="./assets/ñ8.jpg" alt="Imagen 3"></div>
+                <div  class="carousel-item12"><img src="./assets/ñ9.jpg" alt="Imagen 3"></div>
+            </div>
+        </div>
+    </section>
+
+    
+    
+</section>
+
+    <audio id="backgroundMusic" loop>
+        <source src="./assets/Frankie Valli - Cant Take My Eyes Off You (Karaoke Version).mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+      </audio>
+      
+    <script>
+        const totalCards = 14; // Total de cartas
+        const availableCards = [
+            './assets/image1.jpg', // Imagen de perro
+            './assets/imagen2.jpg',  // Imagen de gato
+            './assets/imagen3.jpg', // Imagen de pájaro
+            './assets/imagen4.jpg', // Imagen de pez
+            './assets/imagen5.jpg', // Imagen de conejo
+            './assets/imagen6.jpg', // Otra imagen
+            './assets/coco.png', // Imagen de tortuga
+        ];
+
+        let cards = [];
+        let selectedCards = [];
+        let valuesUsed = [];
+        let currentMove = 0;
+        let currentAttempts = 0;
+        let pairsFound = 0; // Contador de pares encontrados
+
+        let cardTemplate = '<div class="card"><div class="back"></div><div class="face"></div></div>';
+
+        function activate(e) {
+            if (currentMove < 2) {
+                if ((!selectedCards[0] || selectedCards[0] !== e.target) && !e.target.classList.contains('active')) {
+                    e.target.classList.add('active');
+                    selectedCards.push(e.target);
+
+                    if (++currentMove === 2) {
+                        currentAttempts++;
+                        document.querySelector('#stats').innerHTML = currentAttempts + ' intentos';
+
+                        const firstCardImage = selectedCards[0].querySelector('.face img').src;
+                        const secondCardImage = selectedCards[1].querySelector('.face img').src;
+
+                        if (firstCardImage === secondCardImage) {
+                            pairsFound++; // Aumenta el contador de pares encontrados
+                            selectedCards = [];
+                            currentMove = 0;
+
+                            // Verifica si se han encontrado todos los pares
+                            if (pairsFound === availableCards.length) {
+                                // Redirige a felicidades.html
+                                var seccion1 = document.getElementById("seccion1");
+                                var seccion2 = document.getElementById("seccion2");
+
+                                setTimeout(function() {
+                                    seccion1.style.display="none"
+                                    seccion2.style.display="block"
+
+}, 2000); 
+                            }
+                        } else {
+                            setTimeout(() => {
+                                selectedCards[0].classList.remove('active');
+                                selectedCards[1].classList.remove('active');
+                                selectedCards = [];
+                                currentMove = 0;
+                            }, 600);
+                        }
+                    }
+                }
+            }
+        }
+
+        function randomValue() {
+            let rnd = Math.floor(Math.random() * availableCards.length);
+            let count = valuesUsed.filter(value => value === rnd).length;
+            if (count < 2) {
+                valuesUsed.push(rnd);
+                return rnd; // Retorna el valor aleatorio
+            } else {
+                return randomValue(); // Vuelve a intentar si ya se usó el valor dos veces
+            }
+        }
+
+        for (let i = 0; i < totalCards; i++) {
+            let div = document.createElement('div');
+            div.innerHTML = cardTemplate;
+            cards.push(div);
+            document.querySelector('#game').append(cards[i]);
+
+            let cardValue = randomValue(); // Llama a randomValue para obtener el índice aleatorio
+            cards[i].querySelector('.face').innerHTML = `<img src="${availableCards[cardValue]}" alt="Imagen de carta">`;
+            cards[i].querySelector('.card').addEventListener('click', activate);
+        }
+
+        if (sessionStorage.getItem("musicPlaying") === "true") {
+      var audio = document.getElementById('backgroundMusic');
+      audio.volume = 0.2; // Ajusta el volumen al 20%
+      audio.play().catch(function(error) {
+        console.log("Error al intentar reproducir la música: ", error);
+ 
+      });
+
+  
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    const boxes = [
+    { element: document.getElementById('box1'), dropzone: document.getElementById('dropzone1') },
+    { element: document.getElementById('box2'), dropzone: document.getElementById('dropzone2') },
+    { element: document.getElementById('box3'), dropzone: document.getElementById('dropzone3') },
+    { element: document.getElementById('box4'), dropzone: document.getElementById('dropzone4') },
+    { element: document.getElementById('box5'), dropzone: document.getElementById('dropzone5') },
+    { element: document.getElementById('box6'), dropzone: document.getElementById('dropzone6') },
+    { element: document.getElementById('box7'), dropzone: document.getElementById('dropzone7') },
+
+
+];
+
+let offsetX, offsetY;
+let isDragging = false;
+const ganasteMensaje = document.getElementById('ganaste');
+
+boxes.forEach(({ element, dropzone }) => {
+    element.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - element.getBoundingClientRect().left;
+        offsetY = e.clientY - element.getBoundingClientRect().top;
+        element.style.cursor = 'grabbing';
+    });
+
+    element.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            const x = e.clientX - offsetX;
+            const y = e.clientY - offsetY;
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
+        }
+    });
+
+    element.addEventListener('mouseup', () => {
+        isDragging = false;
+        element.style.cursor = 'grab';
+        handleDrop(element, dropzone);
+        checkWinCondition(); // Verificar condición de victoria
+    });
+
+    element.addEventListener('mouseleave', () => {
+        isDragging = false;
+        element.style.cursor = 'grab';
+    });
+
+    // Soporte para dispositivos táctiles
+    element.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - element.getBoundingClientRect().left;
+        offsetY = touch.clientY - element.getBoundingClientRect().top;
+        element.style.cursor = 'grabbing';
+    });
+
+    element.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            const touch = e.touches[0];
+            const x = touch.clientX - offsetX;
+            const y = touch.clientY - offsetY;
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
+        }
+    });
+
+    element.addEventListener('touchend', () => {
+        isDragging = false;
+        element.style.cursor = 'grab';
+        handleDrop(element, dropzone);
+        checkWinCondition(); // Verificar condición de victoria
+    });
+});
+
+// Manejo de la zona de soltar
+function handleDrop(element, dropzone) {
+    const dropzoneRect = dropzone.getBoundingClientRect();
+    const draggableRect = element.getBoundingClientRect();
+
+    // Verifica si la caja está dentro de la zona
+    if (
+        draggableRect.left < dropzoneRect.right &&
+        draggableRect.right > dropzoneRect.left &&
+        draggableRect.top < dropzoneRect.bottom &&
+        draggableRect.bottom > dropzoneRect.top
+    ) {
+        // Mueve la caja al centro de la zona fija
+        const centerX = dropzoneRect.left + (dropzoneRect.width - draggableRect.width) / 2;
+        const centerY = dropzoneRect.top + (dropzoneRect.height - draggableRect.height) / 2;
+        element.style.left = `${centerX}px`;
+        element.style.top = `${centerY}px`;
+    } else {
+        // Regresar a la posición original si no se suelta en la zona correcta
+        element.style.left = '';
+        element.style.top = '';
+    }
+}
+
+// Verifica si todas las cajas están en su lugar
+function checkWinCondition() {
+    const allInPlace = boxes.every(({ element, dropzone }) => {
+        const dropzoneRect = dropzone.getBoundingClientRect();
+        const draggableRect = element.getBoundingClientRect();
+
+        return (
+            draggableRect.left < dropzoneRect.right &&
+            draggableRect.right > dropzoneRect.left &&
+            draggableRect.top < dropzoneRect.bottom &&
+            draggableRect.bottom > dropzoneRect.top
+        );
+    });
+
+    if (allInPlace) {
+        ganasteMensaje.style.display = 'block'; // Mostrar mensaje
+        setTimeout(function() {
+            var seccion3 = document.getElementById("seccion3")
+            var seccion1 = document.getElementById("seccion1")
+
+                                    seccion1.style.display="none"
+                                    seccion2.style.display="none"
+                                    seccion3.style.display="block"
+
+
+}, 2000); 
+           
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var time = new Date();
+var deltaTime = 0;
+
+if(document.readyState === "complete" || document.readyState === "interactive"){
+    setTimeout(Init, 1);
+}else{
+    document.addEventListener("DOMContentLoaded", Init); 
+}
+
+function Init() {
+    time = new Date();
+    Start();
+  //  Loop();
+}
+
+function Loop() {
+var empezar1= document.getElementById("empezar");
+empezar1.style.display="none"
+    deltaTime = (new Date() - time) / 1000;
+    time = new Date();
+    Update();
+    requestAnimationFrame(Loop);
+}
+
+//****** GAME LOGIC ********//
+
+var sueloY = 22;
+var velY = 0;
+var impulso = 900;
+var gravedad = 2500;
+
+var dinoPosX = 42;
+var dinoPosY = sueloY; 
+
+var sueloX = 0;
+var velEscenario = 1280/3;
+var gameVel = 1;
+var score = 0;
+
+var parado = false;
+var saltando = false;
+
+var tiempoHastaObstaculo = 2;
+var tiempoObstaculoMin = 0.7;
+var tiempoObstaculoMax = 1.8;
+var obstaculoPosY = 16;
+var obstaculos = [];
+
+var tiempoHastaNube = 0.5;
+var tiempoNubeMin = 0.7;
+var tiempoNubeMax = 2.7;
+var maxNubeY = 270;
+var minNubeY = 100;
+var nubes = [];
+var velNube = 0.5;
+
+var contenedor;
+var dino;
+var textoScore;
+var suelo;
+var gameOver;
+
+function Start() {
+    gameOver = document.querySelector(".game-over");
+    suelo = document.querySelector(".suelo");
+    contenedor = document.querySelector(".contenedor10");
+    textoScore = document.querySelector(".score");
+    dino = document.querySelector(".dino");
+    document.addEventListener("keydown", HandleKeyDown);
+}
+
+function Update() {
+    if(parado) return;
+    
+    MoverDinosaurio();
+    MoverSuelo();
+    DecidirCrearObstaculos();
+    DecidirCrearNubes();
+    MoverObstaculos();
+    MoverNubes();
+    DetectarColision();
+
+    velY -= gravedad * deltaTime;
+}
+
+function HandleKeyDown(ev){
+    if(ev.keyCode == 32){
+        Saltar();
+    }
+}
+
+function Saltar(){
+    if(score>=25){
+
+    }else{
+    if(dinoPosY === sueloY){
+        saltando = true;
+        velY = impulso;
+        dino.classList.remove("dino-corriendo");
+    }
+}
+}
+
+function MoverDinosaurio() {
+    dinoPosY += velY * deltaTime;
+    if(dinoPosY < sueloY){
+        
+        TocarSuelo();
+    }
+    dino.style.bottom = dinoPosY+"px";
+}
+
+function TocarSuelo() {
+    dinoPosY = sueloY;
+    velY = 0;
+    if(saltando){
+        dino.classList.add("dino-corriendo");
+    }
+    saltando = false;
+}
+
+function MoverSuelo() {
+    sueloX += CalcularDesplazamiento();
+    suelo.style.left = -(sueloX % contenedor.clientWidth) + "px";
+}
+
+function CalcularDesplazamiento() {
+    return velEscenario * deltaTime * gameVel;
+}
+
+function Estrellarse() {
+    dino.classList.remove("dino-corriendo");
+    dino.classList.add("dino-estrellado");
+    parado = true;
+}
+
+function DecidirCrearObstaculos() {
+    tiempoHastaObstaculo -= deltaTime;
+    if(tiempoHastaObstaculo <= 0) {
+        if(score>=24){
+            CrearObstaculo2();
+        }else{
+        CrearObstaculo();
+        }
+    }
+}
+
+function DecidirCrearNubes() {
+    tiempoHastaNube -= deltaTime;
+    if(tiempoHastaNube <= 0) {
+        CrearNube();
+    }
+}
+
+function CrearObstaculo() {
+    var obstaculo = document.createElement("div");
+    contenedor.appendChild(obstaculo);
+    obstaculo.classList.add("cactus");
+    if(Math.random() > 0.5) obstaculo.classList.add("cactus2");
+    obstaculo.posX = contenedor.clientWidth;
+    obstaculo.style.left = contenedor.clientWidth+"px";
+
+    obstaculos.push(obstaculo);
+    tiempoHastaObstaculo = tiempoObstaculoMin + Math.random()+1 * (tiempoObstaculoMax-tiempoObstaculoMin) / gameVel;
+}
+function CrearObstaculo2() {
+    var obstaculo = document.createElement("div");
+    contenedor.appendChild(obstaculo);
+    obstaculo.classList.add("cactus3");
+    if(Math.random() > 0.5) obstaculo.classList.add("cactus3");
+    obstaculo.posX = contenedor.clientWidth;
+    obstaculo.style.left = contenedor.clientWidth+"px";
+
+    obstaculos.push(obstaculo);
+    tiempoHastaObstaculo = tiempoObstaculoMin + Math.random()+1 * (tiempoObstaculoMax-tiempoObstaculoMin) / gameVel;
+}
+
+function CrearNube() {
+    var nube = document.createElement("div");
+    contenedor.appendChild(nube);
+    nube.classList.add("nube");
+    nube.posX = contenedor.clientWidth;
+    nube.style.left = contenedor.clientWidth+"px";
+    nube.style.bottom = minNubeY + Math.random() * (maxNubeY-minNubeY)+"px";
+    
+    nubes.push(nube);
+    tiempoHastaNube = tiempoNubeMin + Math.random() * (tiempoNubeMax-tiempoNubeMin) / gameVel;
+}
+
+function MoverObstaculos() {
+    for (var i = obstaculos.length - 1; i >= 0; i--) {
+        if(obstaculos[i].posX < -obstaculos[i].clientWidth) {
+            obstaculos[i].parentNode.removeChild(obstaculos[i]);
+            obstaculos.splice(i, 1);
+            GanarPuntos();
+        }else{
+            obstaculos[i].posX -= CalcularDesplazamiento();
+            obstaculos[i].style.left = obstaculos[i].posX+"px";
+        }
+    }
+}
+
+function MoverNubes() {
+    for (var i = nubes.length - 1; i >= 0; i--) {
+        if(nubes[i].posX < -nubes[i].clientWidth) {
+            nubes[i].parentNode.removeChild(nubes[i]);
+            nubes.splice(i, 1);
+        }else{
+            nubes[i].posX -= CalcularDesplazamiento() * velNube;
+            nubes[i].style.left = nubes[i].posX+"px";
+        }
+    }
+}
+
+function GanarPuntos() {
+    score++;
+    textoScore.innerText = score;
+    if(score == 5){
+        gameVel = 0.9;
+        contenedor.classList.add("mediodia");
+    }else if(score == 10) {
+        gameVel = 0.9;
+        contenedor.classList.add("tarde");
+    } else if(score == 20) {
+        gameVel = 1.0;
+        contenedor.classList.add("noche");
+    }
+    suelo.style.animationDuration = (3/gameVel)+"s";
+}
+
+function GameOver() {
+    Estrellarse();
+    gameOver.style.display = "block";
+}
+
+function DetectarColision() {
+
+    if(score>=24 ){
+        for (var i = 0; i < obstaculos.length; i++) {
+        if(obstaculos[i].posX > dinoPosX + dino.clientWidth) {
+            //EVADE
+            break; //al estar en orden, no puede chocar con más
+        }else{
+            if(IsCollision(dino, obstaculos[i], 10, 30, 15, 20)) {
+                Ganaste();
+            }
+        }
+    }
+    }else{
+
+    
+    for (var i = 0; i < obstaculos.length; i++) {
+        if(obstaculos[i].posX > dinoPosX + dino.clientWidth) {
+            //EVADE
+            break; //al estar en orden, no puede chocar con más
+        }else{
+            if(IsCollision(dino, obstaculos[i], 10, 30, 15, 20)) {
+                GameOver();
+            }
+        }
+    }
+}
+}
+
+function IsCollision(a, b, paddingTop, paddingRight, paddingBottom, paddingLeft) {
+    var aRect = a.getBoundingClientRect();
+    var bRect = b.getBoundingClientRect();
+
+    return !(
+        ((aRect.top + aRect.height - paddingBottom) < (bRect.top)) ||
+        (aRect.top + paddingTop > (bRect.top + bRect.height)) ||
+        ((aRect.left + aRect.width - paddingRight) < bRect.left) ||
+        (aRect.left + paddingLeft > (bRect.left + bRect.width))
+    );
+}
+
+function Ganaste(){
+    Estrellarse();
+    var ganaste1= document.getElementById("win");
+    ganaste1.style.display = "block";
+}
+// Función para reiniciar el juego
+function Reiniciar() {
+    // Restablece las variables del juego
+    parado = false;
+    gameOver.style.display = "none";
+    dino.classList.add("dino-corriendo");
+    dino.classList.remove("dino-estrellado");
+    sueloX = 0;
+    score = 0;
+    textoScore.innerText = score;
+    gameVel = 1;
+    contenedor.classList.remove("mediodia", "tarde", "noche");
+
+    // Limpia los obstáculos y nubes
+    obstaculos.forEach(obstaculo => obstaculo.remove());
+    obstaculos = [];
+
+    nubes.forEach(nube => nube.remove());
+    nubes = [];
+
+    // Inicia de nuevo el loop
+    Loop();
+}
+function continuar(){
+    var seccion4 =document.getElementById("seccion4")
+    var seccion1 =document.getElementById("seccion1")
+    var seccion3 =document.getElementById("seccion3")
+    var seccion2 =document.getElementById("seccion2")
+
+                                    seccion1.style.display="none"
+                                    seccion2.style.display="none"
+                                    seccion3.style.display="none"
+                                    seccion4.style.display="block"
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+const urlSearchParams = new URLSearchParams(window.location.search)
+
+const messageCustom = urlSearchParams.get('message')
+
+if (messageCustom) {
+
+  const mainMessageElement = document.querySelector('#mainMessage')
+  mainMessageElement.textContent = decodeURI(messageCustom)
+}
+
+// the tutorial starts here
+
+const btnOpenElement = document.querySelector('#open')
+const btnCloseElement = document.querySelector('#close')
+
+btnCloseElement.disabled = true
+
+
+
+btnOpenElement.addEventListener('click', ()=> {
+  if (navigator.vibrate) {
+                // Hacer vibrar el teléfono en un patrón: vibrar 500ms, pausa 500ms, repetido
+                navigator.vibrate([500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500]);
+
+                // La vibración se detendrá automáticamente después del tiempo total de 30 segundos.
+            } else {
+                console.log("La API de Vibración no está soportada en este dispositivo.");
+            }
+  const mainMessageElement = document.querySelector('#mainMessage')
+  btnOpenElement.disabled = true
+  btnCloseElement.disabled = false
+  mainMessageElement.style.display="block"
+  mainMessageElement.style.left="1%"
+
+  const coverElement = document.querySelector('.cover')
+  coverElement.classList.add('open-cover')
+
+  setTimeout(()=>{
+    //
+    coverElement.style.zIndex = -1
+    
+    const paperElement = document.querySelector('.paper')
+    paperElement.classList.remove('close-paper')
+    paperElement.classList.add('open-paper')
+
+    // animacion del corazón
+    const heartElement = document.querySelector('.heart')
+    heartElement.style.display = 'block'
+  
+  }, 500)
+
+})
+btnCloseElement.addEventListener('click', ()=> {
+  btnOpenElement.disabled = false
+  btnCloseElement.disabled = true
+  const mainMessageElement = document.querySelector('#mainMessage')
+ 
+  const coverElement = document.querySelector('.cover')
+  const paperElement = document.querySelector('.paper')
+  paperElement.classList.remove('open-paper')
+  paperElement.classList.add('close-paper')
+
+  
+  setTimeout(()=>{
+    coverElement.style.zIndex = 0
+    coverElement.classList.remove('open-cover')
+
+    // animacion del corazón
+    const heartElement = document.querySelector('.heart')
+    heartElement.style.display = 'none'
+     mainMessageElement.style.display="none"
+  },500)
+})
+
+function cambiarseccion() {
+    var seccion5 =document.getElementById("seccion5");
+    var seccion1 =document.getElementById("seccion1");
+
+                                    seccion1.style.display="none"
+                                    seccion2.style.display="none"
+                                    seccion3.style.display="none"
+                                    seccion4.style.display="none"
+                                    seccion5.style.display="block"
+
+
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const carousel = document.querySelector('.carousel');
+let index = 0;
+
+function moveCarousel() {
+    index++;
+    const items = document.querySelectorAll('.carousel-item');
+    if (index >= items.length-3 ) {
+        index = 0;
+    }
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel, 2000);
+
+  const carousel2 = document.querySelector('.carousel2');
+let index2 = 0;
+
+function moveCarouselLeft() {
+
+index2--;
+    const items2 = document.querySelectorAll('.carousel-item2');
+    if (index2 <0) {
+        index2 = items2.length -1 ;
+        
+    }
+    carousel2.style.transform = `translateX(-${(index2-3) * 100}%)`;
+}
+
+setInterval(moveCarouselLeft, 1000);
+
+
+
+const carousel3 = document.querySelector('.carousel3');
+let index3 = 0;
+
+function moveCarousel3() {
+    index3++;
+    const items3 = document.querySelectorAll('.carousel-item3');
+    if (index3 >= items3.length -4) {
+        index3 = 0;
+    }
+    carousel3.style.transform = `translateX(-${index3 * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel3, 2500);
+
+
+const carousel4 = document.querySelector('.carousel4');
+let index4 = 0;
+
+function moveCarousel4() {
+    index4++;
+    const items4 = document.querySelectorAll('.carousel-item4');
+    if (index4 >= items4.length) {
+        index4 = 0;
+    }
+    carousel4.style.transform = `translateX(-${index4 * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel4, 1500);
+
+const carousel5 = document.querySelector('.carousel5');
+let index5 = 0;
+function moveCarouselLeft5() {
+    index5--;
+    const items5 = document.querySelectorAll('.carousel-item5');
+    if (index5 < 0) {
+        index5 = items5.length -1 ;
+        
+    }
+    carousel5.style.transform = `translateX(-${(index5-2) * 100}%)`;
+}
+
+setInterval(moveCarouselLeft5, 3500);
+
+
+const carousel6 = document.querySelector('.carousel6');
+let index6 = 0;
+function moveCarouselLeft6() {
+    index6--;
+    const items6 = document.querySelectorAll('.carousel-item6');
+    if (index6 < 0) {
+        index6 = items6.length -1 ;
+        
+    }
+    carousel6.style.transform = `translateX(-${(index6-3) * 100}%)`;
+}
+
+setInterval(moveCarouselLeft6, 2000);
+
+
+const carousel7 = document.querySelector('.carousel7');
+let index7 = 0;
+
+function moveCarousel7() {
+    index7++;
+    const items7 = document.querySelectorAll('.carousel-item7');
+    if (index7 >= items7.length-3 ) {
+        index7 = 0;
+    }
+    carousel7.style.transform = `translateX(-${index7 * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel7, 900);
+
+
+
+const carousel8 = document.querySelector('.carousel8');
+let index8 = 0;
+
+function moveCarousel8() {
+    index8++;
+    const items8 = document.querySelectorAll('.carousel-item8');
+    if (index8 >= items8.length-4 ) {
+        index8 = 0;
+    }
+    carousel8.style.transform = `translateX(-${index8 * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel8, 900);
+
+
+
+const carousel9 = document.querySelector('.carousel9');
+let index9 = 0;
+
+function moveCarousel9() {
+    index9++;
+    const items9 = document.querySelectorAll('.carousel-item9');
+    if (index9 >= items9.length-2 ) {
+        index9 = 0;
+    }
+    carousel9.style.transform = `translateX(-${index9 * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel9, 900);
+
+
+
+
+const carousel10 = document.querySelector('.carousel10');
+let index10 = 0;
+
+function moveCarousel10() {
+    index10++;
+    const items10 = document.querySelectorAll('.carousel-item10');
+    if (index10 >= items10.length-7 ) {
+        index10 = 0;
+    }
+    carousel10.style.transform = `translateX(-${index10 * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel10, 1000);
+
+
+
+const carousel11 = document.querySelector('.carousel11');
+let index11 = 0;
+
+function moveCarousel11() {
+    index11++;
+    const items11 = document.querySelectorAll('.carousel-item11');
+    if (index11 >= items11.length-2 ) {
+        index11 = 0;
+    }
+    carousel11.style.transform = `translateX(-${index11 * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel11, 2000);
+
+
+
+const carousel12 = document.querySelector('.carousel12');
+let index12 = 0;
+
+function moveCarousel12() {
+    index12--;
+    const items12 = document.querySelectorAll('.carousel-item12');
+    if (index12 < 0 ) {
+        index12 = items12.length -1 ;
+    }
+    carousel12.style.transform = `translateX(-${(index12-4) * 100}%)`;
+}
+
+// Mover el carrusel automáticamente cada 3 segundos
+setInterval(moveCarousel12, 1600);
+    </script>
+</body>
+</html>

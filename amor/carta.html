@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    /* reset css */
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    /*background: linear-gradient(to bottom, #525252, #001498); */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./assets/amor1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    
+
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/amor1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(8px); /* Ajusta el nivel de desenfoque */
+    z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+}
+* {
+  min-width: 0;
+  font: inherit;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+svg {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* styles */
+/* TODO: Cambiar la fuente
+
+* {
+  font-family: comic-sans;
+} */
+
+body {
+  background-color: #fad7df;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container-letter {
+  position: relative;
+}
+
+.cover {
+  position: absolute;
+  border-left: 200px solid transparent;
+  border-right: 200px solid transparent;
+  border-top: 100px solid #fe3334;
+  border-bottom: 100px solid transparent;
+
+  /*  */
+  transition: transform .75s;
+  transform-origin: top;
+}
+
+.paper {
+  display: none;
+  position: absolute;
+  padding: 1.5rem;
+  line-height: 2rem;
+  right: 5px;
+  /*  */
+  z-index: -1;
+  background: white;
+  width: 390px;
+  height: 260px;
+font-size: 12px;
+  transition: all .75s;
+}
+
+.letter {
+  border-left: 200px solid #ff989e;
+  border-right: 200px solid #ff989e;
+  border-top: 100px solid transparent;
+  border-bottom: 100px solid #ff858a;
+}
+.options {
+  display: flex;
+  gap: 5rem;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+
+.options button {
+  color: #ff3234;
+  font-weight: 600;
+  border-radius: 3px;
+  background: #fad7df;
+  padding: 0.5rem 1rem;
+  border: 1px solid #fe3334;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.options button:hover {
+  background: #ff989e;
+  color: white;
+}
+
+
+.open-cover {
+  transform: rotatex(180deg);
+}
+
+.open-paper {
+  animation: openPaper .5s forwards;
+}
+
+@keyframes openPaper {
+  0% {
+    
+    top: 0;
+  }
+  100% {
+   
+    top: -240px;
+  }
+}
+
+.close-paper {
+  animation: closePaper .5s forwards;
+}
+
+@keyframes closePaper {
+  0% {
+    top: -150px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+
+.heart {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 46.5%;
+  margin: auto;
+  font-size: 3rem;
+
+  color: #fe3334;
+
+  animation: crecer 1s forwards ;
+}
+
+@keyframes crecer {
+  0% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 3;
+    opacity: 0;
+
+  }
+}
+
+.heart2 {
+      position: absolute;
+      top: 0%;
+      left: 60%;
+      width: 100px;
+      height: 100px;
+      font-size: 140px;
+      animation: heartbeat 1s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+</style>
+<body>
+  <main>
+    <section id="seccion1" class="seccion">
+      <div  class="heart2" style="position: absolute; top: 0%; width: 100px; height: 100px; left:70%; font-size: 60px;">❤️</div>
+
+<div  class="heart2" style="position: absolute; top: 85%; width: 100px; height: 100px; left:10%; font-size: 60px;">❤️</div>
+    <div class="container-letter">
+      <div class="cover"></div>
+      <span class="heart">❤️</span>
+      <p class="paper" id="mainMessage">
+       ❤️ Amor, hoy celebramos dos años juntos y no puedo estar más agradecido por cada momento a tu lado. Eres mi amor más grande. Feliz aniversario, Mi vida estera, te amo infinitamente y quiero seguir creando más recuerdos juntos.Esta carta esta dirijida a la fundacion danzakudulo para informales que me voy a quedar con su niña y me la voy a quedar toda la vida.❤️
+      </p>
+      <div class="letter"></div>
+    </div>
+    <div class="options">
+      <button id="open">Abrir</button>
+      <button id="close">Cerrar</butto>
+    </div>
+  </main>
+</div>
+
+<button id="cambiar1" style="position:absolute; top:75%; left: 40%; width: 100px; height: 100px; background-color: transparent; border: none;"  onclick="cambiarseccion()">
+  <img style="width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  transform: rotate(-90deg);
+  " src="./flecha-hacia-abajo-para-navegar.png" alt="">
+</button>
+
+
+</section>
+
+<div style="position: absolute; top: 85%; width: 100px; height: 100px; right:2%;">
+  <img style="width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  transform: rotate(90deg);" src="./assets/marco.png" alt="">
+</div>
+
+
+</div>
+<div style="position: absolute; top: 0%; width: 100px; height: 100px; left:-2%;">
+<img style="width: 100%;
+height: 100%;
+object-fit: contain; 
+transform: rotate(-90deg);" src="./assets/marco.png" alt="">
+</div>
+
+
+<audio id="backgroundMusic" loop>
+  <source src="./assets/Frankie Valli - Cant Take My Eyes Off You (Karaoke Version).mp3" type="audio/mp3">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+
+
+
+<section id="seccion2" class="seccion">
+  holaaaaaaaaa
+</section>
+
+  <script src="script.js"></script>
+</body>
+
+<script>
+
+      // Comprobar si la música estaba sonando en la página anterior
+      if (sessionStorage.getItem("musicPlaying") === "true") {
+      var audio = document.getElementById('backgroundMusic');
+      audio.volume = 0.2; // Ajusta el volumen al 20%
+      audio.play().catch(function(error) {
+        console.log("Error al intentar reproducir la música: ", error);
+ 
+      });
+
+  
+    }
+    // read custom message from query strings
+// Tutorial -> https://youtu.be/6ojp1iWUKw8
+
+const urlSearchParams = new URLSearchParams(window.location.search)
+
+const messageCustom = urlSearchParams.get('message')
+
+if (messageCustom) {
+
+  const mainMessageElement = document.querySelector('#mainMessage')
+  mainMessageElement.textContent = decodeURI(messageCustom)
+}
+
+// the tutorial starts here
+
+const btnOpenElement = document.querySelector('#open')
+const btnCloseElement = document.querySelector('#close')
+
+btnCloseElement.disabled = true
+
+
+
+btnOpenElement.addEventListener('click', ()=> {
+  if (navigator.vibrate) {
+                // Hacer vibrar el teléfono en un patrón: vibrar 500ms, pausa 500ms, repetido
+                navigator.vibrate([500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500]);
+
+                // La vibración se detendrá automáticamente después del tiempo total de 30 segundos.
+            } else {
+                console.log("La API de Vibración no está soportada en este dispositivo.");
+            }
+  const mainMessageElement = document.querySelector('#mainMessage')
+  btnOpenElement.disabled = true
+  btnCloseElement.disabled = false
+  mainMessageElement.style.display="block"
+  const coverElement = document.querySelector('.cover')
+  coverElement.classList.add('open-cover')
+
+  setTimeout(()=>{
+    //
+    coverElement.style.zIndex = -1
+    
+    const paperElement = document.querySelector('.paper')
+    paperElement.classList.remove('close-paper')
+    paperElement.classList.add('open-paper')
+
+    // animacion del corazón
+    const heartElement = document.querySelector('.heart')
+    heartElement.style.display = 'block'
+  
+  }, 500)
+
+})
+btnCloseElement.addEventListener('click', ()=> {
+  btnOpenElement.disabled = false
+  btnCloseElement.disabled = true
+  const mainMessageElement = document.querySelector('#mainMessage')
+ 
+  const coverElement = document.querySelector('.cover')
+  const paperElement = document.querySelector('.paper')
+  paperElement.classList.remove('open-paper')
+  paperElement.classList.add('close-paper')
+
+  
+  setTimeout(()=>{
+    coverElement.style.zIndex = 0
+    coverElement.classList.remove('open-cover')
+
+    // animacion del corazón
+    const heartElement = document.querySelector('.heart')
+    heartElement.style.display = 'none'
+     mainMessageElement.style.display="none"
+  },500)
+})
+
+function cambiarseccion() {
+ // window.location.href = 'cosa.html';
+      // Obtener las secciones
+      var cambiar1 = document.getElementById("cambiar1");
+      var seccion1 = document.getElementById("seccion1");
+      var seccion2 = document.getElementById("seccion2");
+
+      // Ocultar la sección 1 y mostrar la sección 2
+      seccion1.style.display="none"
+      seccion2.style.display="block"
+      cambiar1.style.display="none"
+
+
+      seccion1.classList.add("ocultar");
+      seccion1.classList.remove("mostrar");
+
+      seccion2.classList.add("mostrar");
+      seccion2.classList.remove("ocultar");
+    }
+</script>
+</html>
